@@ -143,6 +143,9 @@ func TestFreeProductAndStore(t *testing.T) {
 	if _, ok := got["missing-refund"]; ok {
 		t.Fatalf("free product / store app needs no refund policy: %+v", got)
 	}
+	if f := got["purchase-path-unverified"]; f.Title != "Purchase path is app stores only; web checkout not verified" {
+		t.Fatalf("store-only purchase path: %+v", got)
+	}
 	if len(c.Stores) != 1 || c.Stores[0] != "Google Play" || len(c.PaymentProviders) != 0 || !c.Sells {
 		t.Fatalf("store: %+v", c)
 	}

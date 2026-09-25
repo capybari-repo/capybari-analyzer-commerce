@@ -1,6 +1,6 @@
 id: commerce
 name: Trust & Commerce Readiness
-version: 0.1.0
+version: 0.2.0
 category: trust
 summary: Reads what a visitor sees before trusting a website with money or an account - payment providers (Stripe, Paddle, Lemon Squeezy, PayPal and others), login, sign-up and checkout entry points, pricing, privacy, terms, refund and contact paths, and coming-soon or waitlist-only pages. Flags password fields on unencrypted pages. Feeds the Trust and Finish questions of the verdict.
 stability: experimental
@@ -8,7 +8,7 @@ core_api: v0
 targets: [website]
 requires: [web-snapshot]
 provides: [commerce]
-findings: [insecure-credentials, missing-legal, missing-refund, missing-contact, coming-soon, pricing-stub]
+findings: [insecure-credentials, missing-legal, missing-refund, missing-contact, coming-soon, pricing-stub, purchase-path-unverified]
 scores: []
 cost: low
 execution:

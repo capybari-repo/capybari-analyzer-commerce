@@ -304,6 +304,28 @@ func (*Analyzer) Analyze(_ context.Context, in *analyzer.Input) (*analyzer.Resul
 			Impact:      &finding.Impact{Buyer: finding.BuyerBlocks},
 		})
 	}
+	// Where would a buyer actually pay? Say so when nothing on the site shows it.
+	if len(c.PaymentProviders) == 0 && !c.Checkout {
+		switch {
+		case len(c.Stores) > 0 && (c.PricesShown || c.Login || c.Signup):
+			add(finding.Finding{
+				Category: "purchase-path-unverified", Severity: finding.Low, Confidence: finding.ConfidenceMedium,
+				Title:       "Purchase path is app stores only; web checkout not verified",
+				Description: fmt.Sprintf("The site shows prices or accounts but no payment provider or checkout on the web; purchases appear to go through %s. Those stores handle payment and refunds, but nothing on the site itself could be checked.", strings.Join(c.Stores, " and ")),
+				Evidence:    []finding.Evidence{{Location: finding.Location{URL: ws.FinalURL}, Detail: "stores: " + strings.Join(c.Stores, ", ") + "; no payment script or checkout link"}},
+				Impact:      &finding.Impact{Buyer: finding.BuyerSupportCost},
+			})
+		case len(c.Stores) == 0 && c.PricesShown:
+			add(finding.Finding{
+				Category: "purchase-path-unverified", Severity: finding.Medium, Confidence: finding.ConfidenceMedium,
+				Title:       "Prices shown, but no way to pay was found",
+				Description: "The site lists prices, but none of the pages read loads a payment provider or links to a checkout or app store. The purchase path may sit behind a login, or may not exist yet.",
+				Evidence:    []finding.Evidence{{Location: finding.Location{URL: ws.FinalURL}, Detail: "prices shown; no payment provider, checkout or store link"}},
+				Impact:      &finding.Impact{Buyer: finding.BuyerSupportCost},
+				Remediation: &finding.Remediation{Summary: "Link pricing to a checkout, or say how to buy (sales contact, app store)."},
+			})
+		}
+	}
 	if pricingPage != nil && !c.PricesShown {
 		add(finding.Finding{
 			Category: "pricing-stub", Severity: finding.Low, Confidence: finding.ConfidenceLow,

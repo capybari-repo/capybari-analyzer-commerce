@@ -18,6 +18,7 @@ It flags:
 | `missing-contact` | no contact/support link, email or phone | support cost |
 | `coming-soon` | the front page is an announcement or waitlist, with no login, checkout or payment | blocks purchase |
 | `pricing-stub` | the pricing page shows no price, free plan or "contact sales" | support cost |
+| `purchase-path-unverified` | prices or accounts but no payment provider or checkout on the web: "Purchase path is app stores only; web checkout not verified" (low), or "Prices shown, but no way to pay was found" (medium) | support cost |
 
 It **never** opens login, checkout or account pages, submits a form, or contacts a payment provider. Its evidence (`commerce`) feeds the **Trust** and **Finish** questions of the report verdict.
 
