@@ -1,0 +1,47 @@
+# Payment providers, recognised from scripts, links and markup on the
+# fetched pages. Presence only: nothing is contacted.
+providers:
+  - {name: Stripe, pattern: '(?i)js\.stripe\.com|checkout\.stripe\.com|buy\.stripe\.com|billing\.stripe\.com'}
+  - {name: Paddle, pattern: '(?i)cdn\.paddle\.com|paddle\.js|checkout\.paddle\.com|buy\.paddle\.com'}
+  - {name: Lemon Squeezy, pattern: '(?i)lemonsqueezy\.com|lmsqueezy\.com'}
+  - {name: PayPal, pattern: '(?i)paypal\.com/sdk|paypalobjects\.com|paypal\.me/|paypal\.com/(?:cgi-bin/webscr|donate|ncp/payment)'}
+  - {name: Gumroad, pattern: '(?i)gumroad\.com/(?:l|js)/|gumroad\.js'}
+  - {name: Shopify, pattern: '(?i)cdn\.shopify\.com|\.myshopify\.com'}
+  - {name: WooCommerce, pattern: '(?i)woocommerce|wc-ajax'}
+  - {name: Chargebee, pattern: '(?i)js\.chargebee\.com|\.chargebee\.com/hosted_pages'}
+  - {name: FastSpring, pattern: '(?i)fastspring\.com|onfastspring\.com'}
+  - {name: Polar, pattern: '(?i)buy\.polar\.sh|polar\.sh/checkout'}
+  - {name: Braintree, pattern: '(?i)js\.braintreegateway\.com'}
+  - {name: Square, pattern: '(?i)squareup\.com|square\.link|web\.squarecdn\.com'}
+  - {name: Razorpay, pattern: '(?i)checkout\.razorpay\.com'}
+  - {name: Mollie, pattern: '(?i)js\.mollie\.com|mollie\.com/checkout'}
+  - {name: Adyen, pattern: '(?i)checkoutshopper-live\.adyen\.com|adyen\.com/checkoutshopper'}
+  - {name: iyzico, pattern: '(?i)iyzipay\.com|iyzico\.com'}
+  - {name: Ko-fi, pattern: '(?i)ko-fi\.com/'}
+  - {name: Buy Me a Coffee, pattern: '(?i)buymeacoffee\.com/'}
+  # Stores sell on the product's behalf and handle payment and refunds.
+  - {name: App Store, store: true, pattern: '(?i)apps\.apple\.com/'}
+  - {name: Google Play, store: true, pattern: '(?i)play\.google\.com/store/apps'}
+  - {name: Steam, store: true, pattern: '(?i)store\.steampowered\.com/app/'}
+  - {name: itch.io, store: true, pattern: '(?i)[a-z0-9-]+\.itch\.io/'}
+
+# Link text or targets (checked on every anchor of every fetched page).
+links:
+  login: '(?i)\blog ?in\b|\bsign ?in\b|/login\b|/signin\b|/sign-in\b|/account\b|\bmy account\b|giriş yap|anmelden'
+  signup: '(?i)\bsign ?up\b|\bregister\b|get started|create (?:an )?account|start (?:your )?(?:free )?trial|/signup\b|/register\b|kayıt ol|registrieren'
+  checkout: '(?i)add to cart|\bbuy now\b|\bbuy\b|checkout|/cart\b|\bpurchase\b|order now|\bupgrade\b|satın al|sepete ekle|kaufen'
+  pricing: '(?i)\bpricing\b|\bplans\b|/pricing\b|/plans\b|\bprices\b|fiyatlar|preise'
+  privacy: '(?i)privacy|datenschutz|gizlilik|kvkk|confidentialit'
+  terms: '(?i)\bterms\b|conditions|/tos\b|\blegal\b|\bagb\b|imprint|impressum|kullanım koşulları|mentions légales'
+  refund: '(?i)refund|returns?\b|cancell?ation|money-back|money back|iade|widerruf|rückgabe'
+  contact: '(?i)\bcontact\b|\bsupport\b|help ?cent(?:er|re)|/contact\b|/support\b|iletişim|kontakt'
+
+# A front page that is only an announcement. Counted only when nothing on
+# the site can be bought or logged into yet.
+coming_soon: '(?i)coming soon|launching soon|join (?:the|our) waitlist|join waitlist|get early access|notify me when|under construction|stay tuned|yakında|demnächst'
+
+# Money actually changing hands on the site: an amount in a currency.
+money: '(?i)[£$€¥₺]\s?\d|\d+(?:[.,]\d+)?\s?(?:€|£|₺|usd|eur|gbp|try)\b'
+
+# A visible price or plan, including free plans.
+price: '(?i)[£$€¥₺]\s?\d|\d+(?:[.,]\d+)?\s?(?:€|£|₺|usd|eur|gbp|try)\b|/\s?(?:mo|month|yr|year)\b|per (?:month|year|user|seat)|\bfree\b|contact (?:sales|us for pricing)|custom pricing'
