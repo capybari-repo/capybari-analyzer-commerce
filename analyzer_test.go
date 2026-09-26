@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 
 	commerce "github.com/capybari-repo/capybari-analyzer-commerce"
@@ -120,6 +121,16 @@ func TestNewsAmountsAreNotPrices(t *testing.T) {
 	})
 	if c.Sells || len(got) != 0 {
 		t.Fatalf("amounts in news copy are not a shop: %+v %+v", c, got)
+	}
+}
+
+func TestSellingAsAMerchantIsNotACheckout(t *testing.T) {
+	_, c, _ := run(t, map[string]string{
+		"/": `<html><body><a href="https://business.example/merchant">Online verkaufen</a>
+<a href="https://business.example/center">Merchant Center Dafür sorgen, dass Interessierte Ihre Produkte entdecken und kaufen</a> <a href="/shop">Jetzt kaufen</a></body></html>`,
+	})
+	if !strings.HasSuffix(c.CheckoutLink, "/shop") {
+		t.Fatalf("'verkaufen' (to sell) is not a buy link; 'Jetzt kaufen' is: %q", c.CheckoutLink)
 	}
 }
 

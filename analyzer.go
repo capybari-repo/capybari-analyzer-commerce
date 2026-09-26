@@ -176,7 +176,13 @@ func (*Analyzer) Analyze(_ context.Context, in *analyzer.Input) (*analyzer.Resul
 		if dead(l.href) {
 			continue
 		}
-		label := l.text + " " + l.href
+		// Buttons and menu items have short labels; a long link text is a
+		// card or sentence ("…help people discover and buy your products")
+		// and is judged by its address only.
+		label := l.href
+		if len([]rune(l.text)) <= 50 {
+			label = l.text + " " + l.href
+		}
 		for kind, re := range linkRules {
 			if _, ok := found[kind]; !ok && re.MatchString(label) {
 				found[kind] = resolve(l.page, l.href)
@@ -184,7 +190,7 @@ func (*Analyzer) Analyze(_ context.Context, in *analyzer.Input) (*analyzer.Resul
 		}
 	}
 	c.Login, c.Signup = found["login"] != "", found["signup"] != ""
-	c.Checkout = found["checkout"] != ""
+	c.Checkout, c.CheckoutLink = found["checkout"] != "", found["checkout"]
 	c.Privacy, c.Terms, c.Refund = found["privacy"], found["terms"], found["refund"]
 	c.Contact = found["contact"]
 	if c.Contact == "" {

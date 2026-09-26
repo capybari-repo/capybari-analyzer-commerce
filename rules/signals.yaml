@@ -29,7 +29,7 @@ providers:
 links:
   login: '(?i)\blog ?in\b|\bsign ?in\b|/login\b|/signin\b|/sign-in\b|/account\b|\bmy account\b|giriş yap|anmelden'
   signup: '(?i)\bsign ?up\b|\bregister\b|get started|create (?:an )?account|start (?:your )?(?:free )?trial|/signup\b|/register\b|kayıt ol|registrieren'
-  checkout: '(?i)add to cart|\bbuy now\b|\bbuy\b|checkout|/cart\b|\bpurchase\b|order now|\bupgrade\b|satın al|sepete ekle|kaufen'
+  checkout: '(?i)add to cart|\bbuy now\b|\bbuy\b|checkout|/cart\b|\bpurchase\b|order now|\bupgrade\b|\bsatın al\b|\bsepete ekle\b|(?:^|\s)(?:jetzt )?kaufen\b|\bin den warenkorb\b'
   pricing: '(?i)\bpricing\b|\bplans\b|/pricing\b|/plans\b|\bprices\b|fiyatlar|preise'
   privacy: '(?i)privacy|datenschutz|gizlilik|kvkk|confidentialit'
   terms: '(?i)\bterms\b|conditions|/tos\b|\blegal\b|\bagb\b|imprint|impressum|kullanım koşulları|mentions légales'
@@ -44,4 +44,4 @@ coming_soon: '(?i)coming soon|launching soon|join (?:the|our) waitlist|join wait
 money: '(?i)[£$€¥₺]\s?\d|\d+(?:[.,]\d+)?\s?(?:€|£|₺|usd|eur|gbp|try)\b'
 
 # A visible price or plan, including free plans.
-price: '(?i)[£$€¥₺]\s?\d|\d+(?:[.,]\d+)?\s?(?:€|£|₺|usd|eur|gbp|try)\b|/\s?(?:mo|month|yr|year)\b|per (?:month|year|user|seat)|\bfree\b|contact (?:sales|us for pricing)|custom pricing'
+price: '(?i)[£$€¥₺]\s?\d|\d+(?:[.,]\d+)?\s?¢|\d+(?:[.,]\d+)?%\s*\+|per (?:successful )?(?:transaction|charge|payment)|\d+(?:[.,]\d+)?\s?(?:€|£|₺|usd|eur|gbp|try)\b|/\s?(?:mo|month|yr|year)\b|per (?:month|year|user|seat)|\bfree\b|contact (?:sales|us for pricing)|custom pricing'
